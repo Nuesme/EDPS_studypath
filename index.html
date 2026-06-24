@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Skills Pathway | UVU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-gradient-start: #f8fbf8;
+      --bg-gradient-mid: #f0f7f2;
+      --bg-gradient-end: #e7f1ea;
+      --surface: #f5f3ee;
+      --surface-panel: #fbfdfb;
+      --green-900: #185c33;
+      --green-800: #2d5e3a;
+      --green-700: #4a6b52;
+      --green-600: #55715d;
+      --green-500: #5a7963;
+      --green-400: #58715f;
+      --green-300: #cfe2d4;
+      --green-200: #d9ead9;
+      --green-100: #edf5ef;
+      --green-50: #eef5f0;
+      --green-25: #e1eee5;
+      --green-tint: #e6f0e9;
+      --green-chip: #cfe2d4;
+      --green-dark-2: #234431;
+      --green-dark-3: #173724;
+      --green-badge: #1f5a35;
+      --text-dark: #183425;
+      --white: #ffffff;
+      --shadow-soft: 0 16px 40px rgba(20, 59, 34, 0.1);
+      --shadow-chip: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --radius-lg: 30px;
+      --radius-md: 22px;
+      --radius-sm: 16px;
+      --radius-pill: 9999px;
+      --font-display: "Segoe UI", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --font-mono: "Geist Mono", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--green-900);
+      background: linear-gradient(155deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 60%, var(--bg-gradient-end) 100%);
+    }
+
+    .app {
+      max-width: 1280px;
+      min-height: 860px;
+      margin: 0 auto;
+      padding: 44px 48px;
+      display: grid;
+      grid-template-columns: minmax(0, 744px) minmax(320px, 416px);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .content-area {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      min-height: 772px;
+    }
+
+    .challenge-section {
+      display: grid;
+      grid-template-columns: 228px minmax(0, 1fr);
+      gap: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .intro-rail {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .label-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-chip {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      background: var(--green-300);
+      color: var(--green-900);
+      border-radius: var(--radius-pill);
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.08;
+      color: var(--green-900);
+    }
+
+    .intro-description {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--green-700);
+    }
+
+    .support-tile {
+      background: var(--green-300);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .support-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--green-700);
+    }
+
+    .support-title {
+      margin-top: 6px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--green-900);
+    }
+
+    .support-note {
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--green-700);
+    }
+
+    .challenge-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .challenge-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .challenge-card {
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      min-height: 180px;
+      background: var(--green-300);
+      color: var(--green-900);
+      font-family: inherit;
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-chip);
+    }
+
+    .challenge-card.is-featured {
+      background: var(--green-900);
+      color: var(--white);
+    }
+
+    .challenge-card.is-selected {
+      outline: 2px solid var(--green-800);
+      outline-offset: 2px;
+    }
+
+    .challenge-card.is-featured.is-selected {
+      outline-color: var(--green-300);
+    }
+
+    .card-chip {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--green-900);
+    }
+
+    .challenge-card.is-featured .card-chip {
+      background: var(--green-800);
+      color: var(--white);
+    }
+
+    .card-title {
+      margin-top: 12px;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.12;
+    }
+
+    .card-description {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.38;
+      color: var(--green-700);
+    }
+
+    .challenge-card.is-featured .card-description {
+      color: var(--surface);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--green-800);
+    }
+
+    .challenge-card.is-featured .card-meta {
+      color: var(--green-300);
+    }
+
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--green-900);
+      box-shadow: var(--shadow-chip);
+    }
+
+    .challenge-card.is-featured .card-action {
+      background: var(--green-800);
+      color: var(--white);
+    }
+
+    .result-panel {
+      position: relative;
+      background: var(--surface-panel);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 772px;
+      overflow: hidden;
+    }
+
+    .accent-orb {
+      position: absolute;
+      top: 18px;
+      right: 34px;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(111, 168, 126, 0.22) 0%, rgba(111, 168, 126, 0) 100%);
+      pointer-events: none;
+    }
+
+    .result-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .resource-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      background: var(--green-100);
+      border-radius: var(--radius-pill);
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-800);
+    }
+
+    .resource-chip-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green-800);
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .panel-intro {
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--green-600);
+    }
+
+    .selected-challenge {
+      background: linear-gradient(135deg, var(--green-50) 0%, var(--green-25) 100%);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .selected-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-500);
+    }
+
+    .selected-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .selected-summary {
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--green-700);
+    }
+
+    .action-steps {
+      background: #f6faf7;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .steps-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .step-line {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green-badge);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .step-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .step-body {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--green-400);
+    }
+
+    .resource-section {
+      margin-top: auto;
+      background: var(--green-900);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .resource-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green-chip);
+    }
+
+    .resource-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .resource-body {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--green-tint);
+    }
+
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .visit-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 13px;
+      background: var(--green-200);
+      color: var(--green-dark-3);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .visit-button:hover {
+      filter: brightness(0.97);
+    }
+
+    .secondary-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-pill);
+      padding: 10px 11px;
+      background: var(--green-dark-2);
+      color: #ddeade;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        min-height: auto;
+      }
+
+      .content-area,
+      .result-panel {
+        min-height: auto;
+      }
+
+      .challenge-section {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-rail {
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .challenge-row {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-title,
+      .panel-title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="content-area" aria-labelledby="intro-title">
+      <div class="challenge-section">
+        <aside class="intro-rail">
+          <div class="label-group">
+            <span class="section-chip">Pick a challenge</span>
+            <div>
+              <h1 class="intro-title" id="intro-title">What feels hardest right now?</h1>
+              <p class="intro-description">
+                Choose one study challenge and start with a pathway built for busy UVU students.
+                Each option keeps the next step clear, short, and manageable.
+              </p>
+            </div>
+          </div>
+
+          <div class="support-tile">
+            <div>
+              <p class="support-eyebrow">6 guided pathways</p>
+              <p class="support-title">Start with the challenge that would make this week feel lighter.</p>
+            </div>
+            <p class="support-note">
+              You can explore one path now and revisit the others later without losing progress.
+            </p>
+          </div>
+        </aside>
+
+        <div class="challenge-grid" id="challenge-grid" role="listbox" aria-label="Study challenges"></div>
+      </div>
+    </section>
+
+    <aside class="result-panel" aria-live="polite">
+      <div class="accent-orb" aria-hidden="true"></div>
+
+      <div class="result-hero">
+        <div class="resource-chip">
+          <span class="resource-chip-dot" aria-hidden="true"></span>
+          <span>Action plan preview</span>
+        </div>
+        <h2 class="panel-title">Your next best step</h2>
+        <p class="panel-intro" id="panel-intro">
+          Choose a challenge to see a short, realistic plan. This sample shows the response state.
+        </p>
+      </div>
+
+      <section class="selected-challenge">
+        <p class="selected-label">Selected challenge</p>
+        <h3 class="selected-title" id="selected-title">Time management</h3>
+        <p class="selected-summary" id="selected-summary">
+          Build a weekly rhythm that breaks assignments into smaller starts and protects study time.
+        </p>
+      </section>
+
+      <section class="action-steps">
+        <h4 class="steps-title" id="steps-title">3-step action plan</h4>
+        <div id="steps-list"></div>
+      </section>
+
+      <section class="resource-section">
+        <p class="resource-label">Recommended UVU resource</p>
+        <h4 class="resource-title" id="resource-title">Academic Tutoring</h4>
+        <p class="resource-body" id="resource-body">
+          Meet with a tutor to shape a workable study schedule and assignment plan.
+        </p>
+        <div class="resource-actions">
+          <a class="visit-button" id="resource-link" href="https://tutoring.uvu.edu" target="_blank" rel="noopener noreferrer">
+            Visit tutoring.uvu.edu
+          </a>
+          <span class="secondary-tag" id="resource-tag">In-person + online</span>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    const challenges = [
+      {
+        id: "procrastination",
+        featured: true,
+        chip: "Quick wins",
+        title: "Procrastination",
+        description: "Start assignments earlier with small kickoff steps and deadline buffers.",
+        meta: "2-step reset",
+        summary: "Break the delay cycle with tiny starts, visible deadlines, and a quick reset when momentum slips.",
+        stepsTitle: "2-step action plan",
+        steps: [
+          {
+            title: "Name the first 10 minutes",
+            body: "Write one tiny start like opening the doc, listing three bullets, or reading one page."
+          },
+          {
+            title: "Set a visible buffer",
+            body: "Put the real due date on your calendar two days early so you have room to finish calmly."
+          }
+        ],
+        resource: {
+          title: "Student Success",
+          body: "Talk with a coach about accountability plans and realistic start habits for busy weeks.",
+          url: "https://www.uvu.edu/academic-coaching/",
+          linkLabel: "Visit Academic Coaching.uvu.edu",
+          tag: "Coaching support"
+        }
+      },
+      {
+        id: "time-management",
+        featured: false,
+        chip: "Weekly plan",
+        title: "Time management",
+        description: "Map classes, work, and study time into a plan you can actually follow.",
+        meta: "15 min tune-up",
+        summary: "Build a weekly rhythm that breaks assignments into smaller starts and protects study time.",
+        stepsTitle: "3-step action plan",
+        steps: [
+          {
+            title: "Map the week",
+            body: "Reserve two short study blocks before busy class days."
+          },
+          {
+            title: "Shrink the first step",
+            body: "Start with a 15-minute action like opening notes or outlining."
+          },
+          {
+            title: "Close the loop",
+            body: "Do a Friday reset to move unfinished work and plan ahead."
+          }
+        ],
+        resource: {
+          title: "Academic Coaching",
+          body: "Meet with a tutor to shape a workable study schedule and assignment plan.",
+          url: "https://www.uvu.edu/academic-coaching/",
+          linkLabel: "Visit www.uvu.edu/academic-coaching",
+          tag: "In-person + online"
+        }
+      },
+      {
+        id: "test-prep",
+        featured: false,
+        chip: "Exam map",
+        title: "Test prep",
+        description: "Break exam studying into shorter review loops before pressure builds.",
+        meta: "Recall practice",
+        summary: "Turn exam prep into short recall loops so review feels steady instead of last-minute.",
+        stepsTitle: "3-step action plan",
+        steps: [
+          {
+            title: "List what the exam covers",
+            body: "Pull topics from the syllabus, study guide, and recent lectures into one page."
+          },
+          {
+            title: "Schedule recall reps",
+            body: "Use 20-minute sessions with flashcards, practice questions, or teach-back notes."
+          },
+          {
+            title: "Check gaps early",
+            body: "Mark weak spots after each session and review them before the next study block."
+          }
+        ],
+        resource: {
+          title: "Testing Services",
+          body: "Use campus testing resources and prep support to reduce uncertainty before exam day.",
+          url: "https://www.uvu.edu/academic-coaching/",
+          linkLabel: "Visit www.uvu.edu/academic-coaching",
+          tag: "Exam support"
+        }
+      },
+      {
+        id: "reading-notes",
+        featured: false,
+        chip: "Read smarter",
+        title: "Reading and notes",
+        description: "Turn dense chapters and lectures into notes that are easier to use later.",
+        meta: "Note system",
+        summary: "Capture readings and lectures in a simple note system you can reuse when assignments start.",
+        stepsTitle: "3-step action plan",
+        steps: [
+          {
+            title: "Preview before you read",
+            body: "Scan headings, summaries, and bold terms to know what matters before diving in."
+          },
+          {
+            title: "Capture in three buckets",
+            body: "Sort notes into key ideas, examples, and questions you still need answered."
+          },
+          {
+            title: "Review within 24 hours",
+            body: "Rewrite the top takeaways in your own words while the material is still fresh."
+          }
+        ],
+        resource: {
+          title: "Academic Coaching",
+          body: "Get help refining note strategies for textbooks, articles, and lecture-heavy courses.",
+          url: "https://www.uvu.edu/academic-coaching/",
+          linkLabel: "Visit www.uvu.edu/academic-coaching",
+          tag: "Study strategies"
+        }
+      },
+      {
+        id: "focus",
+        featured: false,
+        chip: "Less friction",
+        title: "Focus",
+        description: "Protect one calm study block at a time and reduce common distractions.",
+        meta: "Attention tools",
+        summary: "Create one protected focus block by lowering friction before you sit down to work.",
+        stepsTitle: "3-step action plan",
+        steps: [
+          {
+            title: "Choose one block",
+            body: "Pick a single 25- to 45-minute window and treat it as non-negotiable study time."
+          },
+          {
+            title: "Remove friction first",
+            body: "Silence notifications, open only the files you need, and keep water/snacks nearby."
+          },
+          {
+            title: "End with a restart note",
+            body: "Write the next tiny action so it is easy to begin again in the following session."
+          }
+        ],
+        resource: {
+          title: "Mental Health Services",
+          body: "Access support if stress, anxiety, or overload is making sustained focus difficult.",
+          url: "https://www.uvu.edu/studenthealth/",
+          linkLabel: "Visit studenthealth.uvu.edu",
+          tag: "Wellness support"
+        }
+      },
+      {
+        id: "writing-help",
+        featured: false,
+        chip: "Draft support",
+        title: "Writing help",
+        description: "Move from blank page to clear draft with structure, prompts, and revision help.",
+        meta: "Outline first",
+        summary: "Move from blank page to draft by outlining first, writing in passes, and revising with a checklist.",
+        stepsTitle: "3-step action plan",
+        steps: [
+          {
+            title: "Outline the argument",
+            body: "List your claim, three supporting points, and the evidence each point needs."
+          },
+          {
+            title: "Draft without polishing",
+            body: "Write one rough section at a time and leave grammar fixes for later."
+          },
+          {
+            title: "Revise with a checklist",
+            body: "Check clarity, citations, and whether each paragraph supports the main claim."
+          }
+        ],
+        resource: {
+          title: "Writing Center",
+          body: "Book a consultation for feedback on outlines, drafts, and revision plans.",
+          url: "https://www.uvu.edu/writingcenter/",
+          linkLabel: "Visit writingcenter.uvu.edu",
+          tag: "Draft feedback"
+        }
+      }
+    ];
+
+    const grid = document.getElementById("challenge-grid");
+    const panelIntro = document.getElementById("panel-intro");
+    const selectedTitle = document.getElementById("selected-title");
+    const selectedSummary = document.getElementById("selected-summary");
+    const stepsTitle = document.getElementById("steps-title");
+    const stepsList = document.getElementById("steps-list");
+    const resourceTitle = document.getElementById("resource-title");
+    const resourceBody = document.getElementById("resource-body");
+    const resourceLink = document.getElementById("resource-link");
+    const resourceTag = document.getElementById("resource-tag");
+
+    let selectedId = "time-management";
+
+    function renderSteps(steps) {
+      stepsList.innerHTML = steps
+        .map(
+          (step, index) => `
+            <div class="step-line">
+              <div class="step-badge" aria-hidden="true">${index + 1}</div>
+              <div class="step-copy">
+                <p class="step-title">${step.title}</p>
+                <p class="step-body">${step.body}</p>
+              </div>
+            </div>
+          `
+        )
+        .join("");
+    }
+
+    function updatePanel(challenge) {
+      panelIntro.textContent = `Here is a short, realistic plan for ${challenge.title.toLowerCase()}.`;
+      selectedTitle.textContent = challenge.title;
+      selectedSummary.textContent = challenge.summary;
+      stepsTitle.textContent = challenge.stepsTitle;
+      renderSteps(challenge.steps);
+      resourceTitle.textContent = challenge.resource.title;
+      resourceBody.textContent = challenge.resource.body;
+      resourceLink.href = challenge.resource.url;
+      resourceLink.textContent = challenge.resource.linkLabel;
+      resourceTag.textContent = challenge.resource.tag;
+    }
+
+    function renderCards() {
+      const rows = [
+        challenges.slice(0, 2),
+        challenges.slice(2, 4),
+        challenges.slice(4, 6)
+      ];
+
+      grid.innerHTML = rows
+        .map(
+          (row) => `
+            <div class="challenge-row">
+              ${row
+                .map(
+                  (challenge) => `
+                    <button
+                      type="button"
+                      class="challenge-card${challenge.featured ? " is-featured" : ""}${challenge.id === selectedId ? " is-selected" : ""}"
+                      data-id="${challenge.id}"
+                      role="option"
+                      aria-selected="${challenge.id === selectedId}"
+                    >
+                      <div>
+                        <span class="card-chip">${challenge.chip}</span>
+                        <p class="card-title">${challenge.title}</p>
+                        <p class="card-description">${challenge.description}</p>
+                      </div>
+                      <div class="card-footer">
+                        <span class="card-meta">${challenge.meta}</span>
+                        <span class="card-action">Select</span>
+                      </div>
+                    </button>
+                  `
+                )
+                .join("")}
+            </div>
+          `
+        )
+        .join("");
+
+      grid.querySelectorAll(".challenge-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          selectedId = card.dataset.id;
+          const challenge = challenges.find((item) => item.id === selectedId);
+          renderCards();
+          updatePanel(challenge);
+        });
+      });
+    }
+
+    renderCards();
+    updatePanel(challenges.find((item) => item.id === selectedId));
+  </script>
+</body>
+</html>
