@@ -78,18 +78,41 @@
     }
 
     .challenge-section {
-      display: grid;
-      grid-template-columns: 228px minmax(0, 1fr);
-      gap: 24px;
+      display: block; 
       flex: 1;
       min-height: 0;
     }
-
+    
     .intro-rail {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 20px;
+    }
+
+    .challenge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      min-height: 0;
+    }
+
+    .challenge-card {
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      flexdirection: column;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s ease, boxshadow 0.15s ease;
+      min-height: 180px;
+      background: var(--green-300);
+      color: var (--green-900);
+      font-family: inherit;
+      flex: 0 0 calc((100% - 36px) / 3);
+      max-width: calc((100% - 36px) / 3);
     }
 
     .label-group {
@@ -155,21 +178,15 @@
       color: var(--green-700);
     }
 
+    
     .challenge-grid {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-      min-height: 0;
-    }
-
-    .challenge-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      flex-wrap: wrap;
       gap: 18px;
-      flex: 1;
       min-height: 0;
     }
 
+ 
     .challenge-card {
       border: none;
       border-radius: var(--radius-sm);
@@ -185,6 +202,9 @@
       background: var(--green-300);
       color: var(--green-900);
       font-family: inherit;
+
+      flex: 0 0 calc((100% - 36px) / 3);
+      max-width: calc((100% - 36px) / 3);
     }
 
     .challenge-card:hover {
@@ -512,18 +532,25 @@
       .intro-rail {
         gap: 24px;
       }
+    
+      .challenge-card {
+        flex: 0 0 calc((100% - 18px) / 2);
+        max-width: calc((100% - 18px) / 2);
     }
-
-    @media (max-width: 720px) {
-      .challenge-row {
-        grid-template-columns: 1fr;
-      }
-
+    
       .intro-title,
       .panel-title {
         font-size: 26px;
       }
     }
+
+    @media (max-width: 720px) {
+      .challenge-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+    
   </style>
 </head>
 <body>
@@ -541,7 +568,9 @@
               </p>
             </div>
           </div>
-
+          
+          <div class="challenge-grid" id="challenge-grid" role="listbox" aria-label="Study Challenges"></div>
+          
           <div class="support-tile">
             <div>
               <p class="support-eyebrow">6 guided pathways</p>
@@ -829,19 +858,9 @@
     }
 
     function renderCards() {
-      const rows = [
-        challenges.slice(0, 2),
-        challenges.slice(2, 4),
-        challenges.slice(4, 6)
-      ];
-
-      grid.innerHTML = rows
+      grid.innerHTML = challenges
         .map(
-          (row) => `
-            <div class="challenge-row">
-              ${row
-                .map(
-                  (challenge) => `
+          (challenge) => `
                     <button
                       type="button"
                       class="challenge-card${challenge.featured ? " is-featured" : ""}${challenge.id === selectedId ? " is-selected" : ""}"
